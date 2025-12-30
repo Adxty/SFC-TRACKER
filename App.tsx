@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Truck, Driver, Expense, BankTransaction, MaintenanceRecord, Revenue, Trip, TripLog, IssueLog } from './types';
 import { MOCK_TRUCKS, MOCK_EXPENSES, MOCK_DRIVERS, MOCK_BANK_TXNS, MOCK_MAINTENANCE, MOCK_REVENUES, MOCK_TRIPS } from './constants';
 import { Dashboard } from './components/Dashboard';
@@ -281,6 +282,7 @@ const App: React.FC = () => {
           expenses={expenses}
         />
       )}
+      <SpeedInsights />
     </div>
   );
 };
