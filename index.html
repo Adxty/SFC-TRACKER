@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFC TRACKER - Professional Fleet OS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        :root {
+            --brand-indigo: #6366f1;
+            --brand-emerald: #10b981;
+            --brand-amber: #f59e0b;
+            --bg-main: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: #1e293b;
+            overflow-x: hidden;
+            perspective: 3000px;
+        }
+
+        /* Ultimate 3D Interaction & Premium Hover */
+        .card-3d-premium {
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-style: preserve-3d;
+            background: #ffffff;
+            border: 1px solid rgba(241, 245, 249, 0.5);
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.01),
+                0 2px 4px -1px rgba(0, 0, 0, 0.006);
+            will-change: transform, box-shadow;
+            position: relative;
+        }
+        
+        .card-3d-premium::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        .card-3d-premium:hover {
+            transform: translateY(-16px) scale(1.03) rotateX(2.5deg) rotateY(-1.2deg);
+            box-shadow: 
+                0 60px 120px -30px rgba(0, 0, 0, 0.12),
+                0 30px 60px -20px rgba(99, 102, 241, 0.15),
+                0 0 0 1px rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.3);
+            z-index: 10;
+        }
+        
+        .card-3d-premium:hover::before {
+            opacity: 1;
+        }
+
+        .interactive-scale {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, box-shadow;
+        }
+        .interactive-scale:hover {
+            transform: scale(1.05) translateY(-8px);
+            box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.18);
+        }
+
+        /* Privacy Blur Logic */
+        .privacy-blur {
+            transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .privacy-active .privacy-blur {
+            filter: blur(12px) contrast(0.8) brightness(1.1);
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* Modern Glass UI Components */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 20px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .custom-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e1 transparent;
+        }
+
+        /* Sidebar Item Hover Animation */
+        .sidebar-item {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .sidebar-item:hover:not(.active) {
+            background: rgba(241, 245, 249, 0.8);
+            transform: translateX(8px);
+        }
+
+        @keyframes road-move {
+            from { transform: translateX(0); }
+            to { transform: translateX(-120px); }
+        }
+        .animate-road { animation: road-move 0.8s linear infinite; }
+        .animate-road-fast { animation: road-move 0.3s linear infinite; }
+
+        /* HUD Glows */
+        .hud-glow-emerald {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+        .hud-glow-indigo {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3"
+  }
+}
+</script>
+</head>
+<body class="overflow-y-auto overflow-x-hidden">
+    <div id="root"></div>
+</body>
+</html>
